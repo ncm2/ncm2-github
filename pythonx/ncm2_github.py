@@ -23,7 +23,7 @@ def create_request(url, token=''):
 
 class Source(Ncm2Source):
 
-    repo_pat = re.compile(r'.*\b(\w+)\/$')
+    repo_pat = re.compile(r'.*\b([\w-]+)\/$')
 
     def on_complete_repo(self, ctx, token):
         startccol = ctx['startccol']
@@ -113,7 +113,7 @@ class Source(Ncm2Source):
         logger.debug("matches: %s", matches)
         self.complete(ctx, startccol, matches)
 
-    link_pat = re.compile(r'.*\[((\w+)\/)?([\w.\-]+)\]\($')
+    link_pat = re.compile(r'.*\[(([\w-]+)\/)?([\w.\-]+)\]\($')
 
     def on_complete_link(self, ctx, token):
 
