@@ -159,6 +159,7 @@ class Source(Ncm2Source):
         base = ctx['base']
         query = {
             'q': base + ' in:login',
+            'sort': 'followers'
         }
         url = 'https://api.github.com/search/users?' + urlencode(query)
         req = create_request(url, token)

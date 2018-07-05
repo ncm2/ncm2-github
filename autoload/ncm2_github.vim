@@ -50,7 +50,6 @@ let g:ncm2_github#issue_source = get(g:, 'ncm2_github#issue_source', {
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
             \ 'mark': 'gh',
-            \ 'matcher': 'substr',
             \ 'on_complete': 'ncm2_github#on_complete_issue',
             \ 'on_warmup': 'ncm2_github#on_warmup',
             \ 'word_pattern': '((?<!^)#\d*|#\d+)',
@@ -104,8 +103,8 @@ let g:ncm2_github#user_source = get(g:, 'ncm2_github#user_source', {
             \ 'on_complete': 'ncm2_github#on_complete_user',
             \ 'on_warmup': 'ncm2_github#on_warmup',
             \ 'word_pattern': '\w+',
-            \ 'complete_pattern': ['github.com\/', '@'],
-            \ 'complete_length': 3,
+            \ 'complete_pattern': ['github.com\/\w{3,}', '@\w{3,}'],
+            \ 'complete_length': -1,
             \ })
 
 let g:ncm2_github#user_source = extend(g:ncm2_github#user_source,
@@ -126,7 +125,6 @@ let g:ncm2_github#emoji_source = get(g:, 'ncm2_github#emoji_source', {
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
             \ 'mark': 'gh',
-            \ 'matcher': 'substr',
             \ 'on_complete': 'ncm2_github#on_complete_emoji',
             \ 'word_pattern': ':[\w+-]*',
             \ 'complete_length': 2,
