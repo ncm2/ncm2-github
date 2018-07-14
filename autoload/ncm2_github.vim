@@ -20,7 +20,8 @@ endfunc
 
 " github repo
 
-let g:ncm2_github#repo_source = get(g:, 'ncm2_github#repo_source', {
+let g:ncm2_github#repo_source = extend(
+            \ get(g:, 'ncm2_github#repo_source', {}), {
             \ 'name': 'github-repo',
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
@@ -30,11 +31,7 @@ let g:ncm2_github#repo_source = get(g:, 'ncm2_github#repo_source', {
             \ 'word_pattern': '[\w.-]+',
             \ 'complete_length': -1,
             \ 'complete_pattern': ['\b(\w+)\/']
-            \ })
-
-let g:ncm2_github#repo_source = extend(g:ncm2_github#repo_source,
-            \ get(g:, 'ncm2_github#repo_source_override', {}),
-            \ 'force')
+            \ }, 'keep')
 
 func! ncm2_github#on_complete_repo(ctx)
     call g:ncm2_github#proc.try_notify('on_complete_repo',
@@ -45,7 +42,8 @@ endfunc
 " github issue
 
 " # character doesn't work well with abbreviation match
-let g:ncm2_github#issue_source = get(g:, 'ncm2_github#issue_source', {
+let g:ncm2_github#issue_source = extend(
+            \ get(g:, 'ncm2_github#issue_source', {}), {
             \ 'name': 'github-issue',
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
@@ -54,11 +52,7 @@ let g:ncm2_github#issue_source = get(g:, 'ncm2_github#issue_source', {
             \ 'on_warmup': 'ncm2_github#on_warmup',
             \ 'word_pattern': '((?<!^)#\d*|#\d+)',
             \ 'complete_length': 1,
-            \ })
-
-let g:ncm2_github#issue_source = extend(g:ncm2_github#issue_source,
-            \ get(g:, 'ncm2_github#issue_source_override', {}),
-            \ 'force')
+            \ }, 'keep')
 
 func! ncm2_github#on_complete_issue(ctx)
     call g:ncm2_github#proc.try_notify('on_complete_issue',
@@ -70,7 +64,8 @@ endfunc
 " github link
 
 " # character doesn't work well with abbreviation match
-let g:ncm2_github#link_source = get(g:, 'ncm2_github#link_source', {
+let g:ncm2_github#link_source = extend(
+			\ get(g:, 'ncm2_github#link_source', {}), {
             \ 'name': 'github-link',
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
@@ -80,11 +75,7 @@ let g:ncm2_github#link_source = get(g:, 'ncm2_github#link_source', {
             \ 'word_pattern': '[^)(]+',
             \ 'complete_pattern': ['\[(\w+\/)?[\w.\-]+\]\('],
             \ 'complete_length': -1,
-            \ })
-
-let g:ncm2_github#link_source = extend(g:ncm2_github#link_source,
-            \ get(g:, 'ncm2_github#link_source_override', {}),
-            \ 'force')
+            \ }, 'keep')
 
 func! ncm2_github#on_complete_link(ctx)
     call g:ncm2_github#proc.try_notify('on_complete_link',
@@ -95,7 +86,8 @@ endfunc
 " github user
 
 " # character doesn't work well with abbreviation match
-let g:ncm2_github#user_source = get(g:, 'ncm2_github#user_source', {
+let g:ncm2_github#user_source = extend(
+			\ get(g:, 'ncm2_github#user_source', {}), {
             \ 'name': 'github-user',
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
@@ -105,11 +97,7 @@ let g:ncm2_github#user_source = get(g:, 'ncm2_github#user_source', {
             \ 'word_pattern': '\w+',
             \ 'complete_pattern': ['github.com\/\w{3,}', '@\w{3,}'],
             \ 'complete_length': -1,
-            \ })
-
-let g:ncm2_github#user_source = extend(g:ncm2_github#user_source,
-            \ get(g:, 'ncm2_github#user_source_override', {}),
-            \ 'force')
+            \ }, 'keep')
 
 func! ncm2_github#on_complete_user(ctx)
     call g:ncm2_github#proc.try_notify('on_complete_user',
@@ -120,7 +108,8 @@ endfunc
 " emoji
 
 " # character doesn't work well with abbreviation match
-let g:ncm2_github#emoji_source = get(g:, 'ncm2_github#emoji_source', {
+let g:ncm2_github#emoji_source = extend(
+			\ get(g:, 'ncm2_github#emoji_source', {}), {
             \ 'name': 'github-emoji',
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
@@ -128,11 +117,7 @@ let g:ncm2_github#emoji_source = get(g:, 'ncm2_github#emoji_source', {
             \ 'on_complete': 'ncm2_github#on_complete_emoji',
             \ 'word_pattern': ':[\w+-]*',
             \ 'complete_length': 2,
-            \ })
-
-let g:ncm2_github#emoji_source = extend(g:ncm2_github#emoji_source,
-            \ get(g:, 'ncm2_github#emoji_source_override', {}),
-            \ 'force')
+            \ }, 'keep')
 
 func! ncm2_github#on_complete_emoji(ctx)
     let matches = [
