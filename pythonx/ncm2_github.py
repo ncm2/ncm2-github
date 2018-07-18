@@ -110,7 +110,7 @@ class Issue(Ncm2Source):
 
         rsp = json.loads(rsp.decode())
         for i in rsp['items']:
-            matches.append(dict(word='#%s' %
+            matches.append(dict(word='%s' %
                                 i['number'], menu=i['title']))
 
         logger.debug("matches: %s", matches)

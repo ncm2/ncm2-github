@@ -48,10 +48,16 @@ let g:ncm2_github#issue_source = extend(
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
             \ 'mark': 'gh',
+            \ 'matcher': {'name': 'combine',
+            \           'matchers': [
+            \               {'name': 'abbrfuzzy', 'key': 'menu'},
+            \               {'name': 'prefix', 'key': 'word'},
+            \           ]},
             \ 'on_complete': 'ncm2_github#on_complete_issue',
             \ 'on_warmup': 'ncm2_github#on_warmup',
-            \ 'word_pattern': '((?<!^)#\d*|#\d+)',
-            \ 'complete_length': 1,
+            \ 'complete_pattern': ['(?<!^)#'],
+            \ 'word_pattern': '[^\s#]+',
+            \ 'complete_length': -1,
             \ }, 'keep')
 
 func! ncm2_github#on_complete_issue(ctx)
