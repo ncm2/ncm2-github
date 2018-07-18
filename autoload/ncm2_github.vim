@@ -5,6 +5,7 @@ let s:loaded = 1
 
 let g:ncm2_github#token = ''
 let g:ncm2_github#proc = yarp#py3('ncm2_github')
+let g:ncm2_github#proc.on_load = 'ncm2_github#on_load'
 
 func! ncm2_github#init()
     call ncm2#register_source(g:ncm2_github#repo_source)
@@ -12,6 +13,13 @@ func! ncm2_github#init()
     call ncm2#register_source(g:ncm2_github#link_source)
     call ncm2#register_source(g:ncm2_github#user_source)
     call ncm2#register_source(g:ncm2_github#emoji_source)
+endfunc
+
+func! ncm2_github#on_load()
+    call ncm2#set_ready(g:ncm2_github#repo_source)
+    call ncm2#set_ready(g:ncm2_github#issue_source)
+    call ncm2#set_ready(g:ncm2_github#link_source)
+    call ncm2#set_ready(g:ncm2_github#user_source)
 endfunc
 
 func! ncm2_github#on_warmup(ctx)
@@ -23,6 +31,7 @@ endfunc
 let g:ncm2_github#repo_source = extend(
             \ get(g:, 'ncm2_github#repo_source', {}), {
             \ 'name': 'github-repo',
+            \ 'ready': 0,
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
             \ 'mark': 'gh',
@@ -45,6 +54,7 @@ endfunc
 let g:ncm2_github#issue_source = extend(
             \ get(g:, 'ncm2_github#issue_source', {}), {
             \ 'name': 'github-issue',
+            \ 'ready': 0,
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
             \ 'mark': 'gh',
@@ -73,6 +83,7 @@ endfunc
 let g:ncm2_github#link_source = extend(
 			\ get(g:, 'ncm2_github#link_source', {}), {
             \ 'name': 'github-link',
+            \ 'ready': 0,
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
             \ 'mark': 'gh',
@@ -95,6 +106,7 @@ endfunc
 let g:ncm2_github#user_source = extend(
 			\ get(g:, 'ncm2_github#user_source', {}), {
             \ 'name': 'github-user',
+            \ 'ready': 0,
             \ 'scope': ['gitcommit', 'markdown', 'magit'],
             \ 'priority': 8,
             \ 'mark': 'gh',
