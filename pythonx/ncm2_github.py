@@ -21,11 +21,11 @@ def create_request(url, token=''):
     return req
 
 
-class Source(Ncm2Source):
+class Repo(Ncm2Source):
 
     repo_pat = re.compile(r'.*\b([\w-]+)\/$')
 
-    def on_complete_repo(self, ctx, token):
+    def on_complete(self, ctx, token):
         startccol = ctx['startccol']
         typed = ctx['typed']
         base = ctx['base']
@@ -59,6 +59,9 @@ class Source(Ncm2Source):
         refresh = rsp['incomplete_results']
         self.complete(ctx, startccol, matches, refresh)
 
+
+class Issue(Ncm2Source):
+
     repo_user_pat = re.compile('github.com[\/:](\w+)\/([\w.\-]+)\.git')
 
     def get_repo_user(self, cwd):
@@ -78,7 +81,7 @@ class Source(Ncm2Source):
                 "Failed executing _get_repo_user at cwd [%s]", cwd)
             return None, None
 
-    def on_complete_issue(self, ctx, token, cwd):
+    def on_complete(self, ctx, token, cwd):
 
         filepath = ctx['filepath']
         startccol = ctx['startccol']
@@ -113,9 +116,12 @@ class Source(Ncm2Source):
         logger.debug("matches: %s", matches)
         self.complete(ctx, startccol, matches)
 
+
+class Link(Ncm2Source):
+
     link_pat = re.compile(r'.*\[(([\w-]+)\/)?([\w.\-]+)\]\($')
 
-    def on_complete_link(self, ctx, token):
+    def on_complete(self, ctx, token):
 
         # `.*` greedy match, push to the the end
         typed = ctx['typed']
@@ -155,7 +161,10 @@ class Source(Ncm2Source):
         refresh = rsp['incomplete_results']
         self.complete(ctx, startccol, matches, refresh)
 
-    def on_complete_user(self, ctx, token):
+
+class User(Ncm2Source):
+
+    def on_complete(self, ctx, token):
         base = ctx['base']
         query = {
             'q': base + ' in:login',
@@ -179,9 +188,12 @@ class Source(Ncm2Source):
         self.complete(ctx, ctx['startccol'], matches, refresh)
 
 
-source = Source(vim)
+repo = Repo(vim)
+issue = Issue(vim)
+link = Link(vim)
+user = User(vim)
 
-on_complete_repo = source.on_complete_repo
-on_complete_issue = source.on_complete_issue
-on_complete_link = source.on_complete_link
-on_complete_user = source.on_complete_user
+on_complete_repo = repo.on_complete
+on_complete_issue = issue.on_complete
+on_complete_link = link.on_complete
+on_complete_user = user.on_complete
