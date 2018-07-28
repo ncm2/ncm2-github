@@ -133,7 +133,7 @@ let g:ncm2_github#emoji_source = extend(
             \ 'priority': 8,
             \ 'mark': 'gh',
             \ 'on_complete': 'ncm2_github#on_complete_emoji',
-            \ 'word_pattern': ':[\w+-]*',
+            \ 'word_pattern': ':[\w+-]*:?',
             \ 'complete_length': 2,
             \ }, 'keep')
 
