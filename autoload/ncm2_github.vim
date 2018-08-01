@@ -16,10 +16,10 @@ func! ncm2_github#init()
 endfunc
 
 func! ncm2_github#on_load()
-    call ncm2#set_ready(g:ncm2_github#repo_source)
-    call ncm2#set_ready(g:ncm2_github#issue_source)
-    call ncm2#set_ready(g:ncm2_github#link_source)
-    call ncm2#set_ready(g:ncm2_github#user_source)
+    let g:ncm2_github#repo_source.ready  = 1
+    let g:ncm2_github#issue_source.ready  = 1
+    let g:ncm2_github#link_source.ready  = 1
+    let g:ncm2_github#user_source.ready  = 1
 endfunc
 
 func! ncm2_github#on_warmup(ctx)
