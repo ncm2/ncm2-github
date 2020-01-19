@@ -32,7 +32,7 @@ let g:ncm2_github#repo_source = extend(
             \ get(g:, 'ncm2_github#repo_source', {}), {
             \ 'name': 'github-repo',
             \ 'ready': 0,
-            \ 'scope': ['gitcommit', 'markdown', 'magit'],
+            \ 'scope': ['gitcommit', 'markdown', 'magit', 'vim'],
             \ 'priority': 8,
             \ 'mark': 'gh',
             \ 'on_complete': 'ncm2_github#on_complete_repo',
